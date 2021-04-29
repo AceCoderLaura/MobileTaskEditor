@@ -7,16 +7,17 @@
     <ContentPage.BindingContext>
         <local:MainModel />
     </ContentPage.BindingContext>
-    
-    <StackLayout>
-        
-        <Entry Text="{Binding CurrentTask.Description}" />
 
-        <Label Text="SAVED ✅✔☑" IsVisible="{Binding CurrentTask.Saved}" />
+    <StackLayout>
+
+        <StackLayout IsVisible="{Binding HasTask}">
+            <Entry Text="{Binding CurrentTask.Description}" />
+            <Label Text="SAVED ✅" IsVisible="{Binding CurrentTaskSaved, FallbackValue=False}" />
+            <Button Command="{Binding SaveTaskCommand}" Text="SAVE" />
+        </StackLayout>
         
-        <Button Command="{Binding SaveTaskCommand}" />
-        <Button Command="{Binding NewTaskCommand}" />
-        
+        <Button Command="{Binding NewTaskCommand}" Text="NEW" />
+
     </StackLayout>
 
 </ContentPage>

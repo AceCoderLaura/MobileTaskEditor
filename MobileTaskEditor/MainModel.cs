@@ -11,11 +11,29 @@ namespace MobileTaskEditor
         private TaskInfo _currentTask;
         private SaveTaskCommand _saveTaskCommand;
         private RelayCommand _newTaskCommand;
+        private bool _currentTaskSaved;
+        private bool _hasTask;
+
+        public bool CurrentTaskSaved
+        {
+            get => _currentTaskSaved;
+            set
+            {
+                if (value == _currentTaskSaved) return;
+                _currentTaskSaved = value;
+                OnPropertyChanged();
+                SaveTaskCommand.OnCanExecuteChanged();
+            }
+        }
 
         public MainModel()
         {
             SaveTaskCommand = new SaveTaskCommand(this);
-            NewTaskCommand = new RelayCommand(p => CurrentTask = new TaskInfo(), p => true);
+            NewTaskCommand = new RelayCommand(p =>
+            {
+                CurrentTask = new TaskInfo(this);
+                CurrentTaskSaved = false;
+            }, p => true);
         }
 
         public TaskInfo CurrentTask
@@ -26,6 +44,7 @@ namespace MobileTaskEditor
                 if (Equals(value, _currentTask)) return;
                 _currentTask = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(HasTask));
                 SaveTaskCommand.OnCanExecuteChanged();
             }
         }
@@ -51,6 +70,8 @@ namespace MobileTaskEditor
                 OnPropertyChanged();
             }
         }
+
+        public bool HasTask => CurrentTask != null;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -99,12 +120,13 @@ namespace MobileTaskEditor
             _model = model;
         }
 
-        /// <summary>
-        /// The conditions for making a new task is that there is no current task.
-        /// </summary>
-        public bool CanExecute(object parameter) => _model.CurrentTask != null;
+        public bool CanExecute(object parameter) => _model.CurrentTask != null && !_model.CurrentTaskSaved;
 
-        public void Execute(object parameter) => _model.CurrentTask.Saved = true;
+        public void Execute(object parameter)
+        {
+            _model.CurrentTaskSaved = true;
+            OnCanExecuteChanged();
+        }
 
         public event EventHandler CanExecuteChanged;
 
@@ -113,18 +135,12 @@ namespace MobileTaskEditor
 
     public class TaskInfo : INotifyPropertyChanged
     {
-        private bool _saved;
+        private readonly MainModel _model;
         private string _description;
 
-        public bool Saved
+        public TaskInfo(MainModel model)
         {
-            get => _saved;
-            set
-            {
-                if (value == _saved) return;
-                _saved = value;
-                OnPropertyChanged();
-            }
+            _model = model;
         }
 
         public string Description
@@ -143,8 +159,7 @@ namespace MobileTaskEditor
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            if (propertyName != nameof(Saved)) Saved = false;
-            
+            _model.CurrentTaskSaved = false;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
