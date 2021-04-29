@@ -4,11 +4,19 @@
              xmlns:local="clr-namespace:MobileTaskEditor"
              x:Class="MobileTaskEditor.MainPage">
 
+    <ContentPage.BindingContext>
+        <local:MainModel />
+    </ContentPage.BindingContext>
+    
     <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
+        
+        <Entry Text="{Binding CurrentTask.Description}" />
+
+        <Label Text="SAVED ✅✔☑" IsVisible="{Binding CurrentTask.Saved}" />
+        
+        <Button Command="{Binding SaveTaskCommand}" />
+        <Button Command="{Binding NewTaskCommand}" />
+        
     </StackLayout>
 
 </ContentPage>
