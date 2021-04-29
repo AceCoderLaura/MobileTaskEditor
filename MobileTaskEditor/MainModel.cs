@@ -12,7 +12,6 @@ namespace MobileTaskEditor
         private SaveTaskCommand _saveTaskCommand;
         private RelayCommand _newTaskCommand;
         private bool _currentTaskSaved;
-        private bool _hasTask;
 
         public bool CurrentTaskSaved
         {
