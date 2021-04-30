@@ -1,23 +1,24 @@
 ﻿using System;
 using System.Windows.Input;
+using MobileTaskEditor.ViewModel;
 
-namespace MobileTaskEditor
+namespace MobileTaskEditor.Commands
 {
     public class SaveTaskCommand : ICommand
     {
-        private readonly MainModel _model;
+        private readonly TaskInfoViewModel _model;
 
-        public SaveTaskCommand(MainModel model)
+        public SaveTaskCommand(TaskInfoViewModel model)
         {
             _model = model;
         }
 
-        public bool CanExecute(object parameter) => _model.CurrentTask != null && !_model.CurrentTaskSaved;
+        public bool CanExecute(object parameter) => _model.TaskInfo != null && _model.TaskInfo.IsChanged;
 
         public void Execute(object parameter)
         {
-            _model.CurrentTaskSaved = true;
-            OnCanExecuteChanged();
+            // TODO: Save the task somewhere
+            _model.TaskInfo.AcceptChanges();
         }
 
         public event EventHandler CanExecuteChanged;

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace MobileTaskEditor
+namespace MobileTaskEditor.Commands
 {
-    public class RelayCommand : ICommand
+    public sealed class RelayCommand : ICommand
     {
         private readonly Action<object> _execute;
         private readonly Func<object, bool> _canExecute;
@@ -26,7 +26,7 @@ namespace MobileTaskEditor
 
         public event EventHandler CanExecuteChanged;
 
-        public virtual void OnCanExecuteChanged()
+        public void OnCanExecuteChanged()
         {
             CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }

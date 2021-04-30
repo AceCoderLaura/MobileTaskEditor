@@ -2,17 +2,12 @@
 using System.Runtime.CompilerServices;
 using MobileTaskEditor.Annotations;
 
-namespace MobileTaskEditor
+namespace MobileTaskEditor.Model
 {
-    public class TaskInfo : INotifyPropertyChanged
+    public sealed class TaskInfo : INotifyPropertyChanged, IChangeTracking
     {
-        private readonly MainModel _model;
         private string _description;
-
-        public TaskInfo(MainModel model)
-        {
-            _model = model;
-        }
+        private bool _isChanged;
 
         public string Description
         {
@@ -28,10 +23,23 @@ namespace MobileTaskEditor
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            _model.CurrentTaskSaved = false;
+            if(propertyName != nameof(IsChanged)) IsChanged = true;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void AcceptChanges() => IsChanged = false;
+
+        public bool IsChanged
+        {
+            get => _isChanged;
+            private set
+            {
+                if (value == _isChanged) return;
+                _isChanged = value;
+                OnPropertyChanged();
+            }
         }
     }
 }
