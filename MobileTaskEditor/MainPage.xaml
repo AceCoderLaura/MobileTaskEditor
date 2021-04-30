@@ -1,25 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewModel="clr-namespace:MobileTaskEditor.ViewModel;assembly=MobileTaskEditor"
-             xmlns:converters="clr-namespace:MobileTaskEditor.Converters;assembly=MobileTaskEditor"
-             x:Class="MobileTaskEditor.MainPage">
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:mobileTaskEditor="clr-namespace:MobileTaskEditor;assembly=MobileTaskEditor"
+       x:Class="MobileTaskEditor.MainPage">
 
-    <ContentPage.BindingContext>
-        <viewModel:MainModel />
-    </ContentPage.BindingContext>
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent Title="Task" ContentTemplate="{x:DataTemplate mobileTaskEditor:TaskPage}" />
+    </FlyoutItem>
 
-    <StackLayout>
-        
-        <StackLayout IsVisible="{Binding HasTask}">
-            <Entry Text="{Binding CurrentTask.TaskInfo.Description}" />
-            <Label Text="SAVED ✅" IsVisible="{Binding CurrentTask.TaskInfo.IsChanged, Converter={converters:InverterConverter}, FallbackValue=False}" />
-            <Button Command="{Binding CurrentTask.SaveTaskCommand}" Text="SAVE" />
-        </StackLayout>
-
-        <Button Command="{Binding NewTaskCommand}" Text="NEW" />
-
-    </StackLayout>
-
-</ContentPage>
+</Shell>

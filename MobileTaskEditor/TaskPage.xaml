@@ -1,0 +1,26 @@
+﻿<ContentPage x:Class="MobileTaskEditor.TaskPage"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:converters="clr-namespace:MobileTaskEditor.Converters;assembly=MobileTaskEditor"
+             xmlns:viewModel="clr-namespace:MobileTaskEditor.ViewModel;assembly=MobileTaskEditor">
+
+    <ContentPage.BindingContext>
+        <viewModel:TaskInfoViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding SaveTaskCommand}" Text="💾" />
+        <ToolbarItem Command="{Binding NewTaskCommand}" Text="NEW" />
+    </ContentPage.ToolbarItems>
+
+    <StackLayout>
+
+        <StackLayout IsVisible="{Binding HasTask}">
+            <Entry Text="{Binding TaskInfo.Description}" />
+            <Label Text="SAVED ✅" IsVisible="{Binding TaskInfo.IsChanged, Converter={converters:InverterConverter}, FallbackValue=False}" />
+        </StackLayout>
+
+    </StackLayout>
+
+
+</ContentPage>

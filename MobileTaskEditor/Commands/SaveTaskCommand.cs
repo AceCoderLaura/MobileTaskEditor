@@ -4,7 +4,7 @@ using MobileTaskEditor.ViewModel;
 
 namespace MobileTaskEditor.Commands
 {
-    public class SaveTaskCommand : ICommand
+    public sealed class SaveTaskCommand : ICommand
     {
         private readonly TaskInfoViewModel _model;
 
@@ -23,6 +23,6 @@ namespace MobileTaskEditor.Commands
 
         public event EventHandler CanExecuteChanged;
 
-        public virtual void OnCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        public void OnCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
     }
 }

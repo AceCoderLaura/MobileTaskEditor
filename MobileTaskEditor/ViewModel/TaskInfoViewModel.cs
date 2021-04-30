@@ -8,13 +8,28 @@ namespace MobileTaskEditor.ViewModel
 {
     public sealed class TaskInfoViewModel : INotifyPropertyChanged
     {
+        public bool HasTask => TaskInfo != null;
+
         private TaskInfo _taskInfo;
-        
+        private RelayCommand _newTaskCommand;
+
+        public RelayCommand NewTaskCommand
+        {
+            get => _newTaskCommand;
+            set
+            {
+                if (Equals(value, _newTaskCommand)) return;
+                _newTaskCommand = value;
+                OnPropertyChanged();
+            }
+        }
+
         public SaveTaskCommand SaveTaskCommand { get; }
 
         public TaskInfoViewModel()
         {
             SaveTaskCommand = new SaveTaskCommand(this);
+            _newTaskCommand = new RelayCommand(p => { TaskInfo = new TaskInfo(); }, p => true);
         }
 
         /// <summary>The data component of this view model.</summary>
@@ -26,15 +41,16 @@ namespace MobileTaskEditor.ViewModel
         public TaskInfo TaskInfo
         {
             get => _taskInfo;
-            set
+            private set
             {
                 if (Equals(value, _taskInfo)) return;
 
                 if (_taskInfo != null) _taskInfo.PropertyChanged -= TaskInfoOnPropertyChanged;
                 _taskInfo = value;
                 if (_taskInfo != null) _taskInfo.PropertyChanged += TaskInfoOnPropertyChanged;
-                
+
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(HasTask));
                 SaveTaskCommand.OnCanExecuteChanged();
             }
         }
