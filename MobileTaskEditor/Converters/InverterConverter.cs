@@ -3,7 +3,7 @@ using System.Globalization;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace MobileTaskEditor
+namespace MobileTaskEditor.Converters
 {
     public class InverterConverter : IValueConverter, IMarkupExtension
     {
@@ -18,7 +18,7 @@ namespace MobileTaskEditor
             {
                 case bool b: return !b;
                 case int i: return -i;
-                default: throw new NotImplementedException();
+                default: throw new ArgumentOutOfRangeException(nameof(value), value, "Cannot invert unknown type.");
             }
         }
 

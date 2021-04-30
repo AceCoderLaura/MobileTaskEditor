@@ -3,7 +3,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModel="clr-namespace:MobileTaskEditor.ViewModel;assembly=MobileTaskEditor"
-             xmlns:mobileTaskEditor="clr-namespace:MobileTaskEditor;assembly=MobileTaskEditor"
+             xmlns:converters="clr-namespace:MobileTaskEditor.Converters;assembly=MobileTaskEditor"
              x:Class="MobileTaskEditor.MainPage">
 
     <ContentPage.BindingContext>
@@ -14,7 +14,7 @@
         
         <StackLayout IsVisible="{Binding HasTask}">
             <Entry Text="{Binding CurrentTask.TaskInfo.Description}" />
-            <Label Text="SAVED ✅" IsVisible="{Binding CurrentTask.TaskInfo.IsChanged, Converter={mobileTaskEditor:InverterConverter}, FallbackValue=False}" />
+            <Label Text="SAVED ✅" IsVisible="{Binding CurrentTask.TaskInfo.IsChanged, Converter={converters:InverterConverter}, FallbackValue=False}" />
             <Button Command="{Binding CurrentTask.SaveTaskCommand}" Text="SAVE" />
         </StackLayout>
 
