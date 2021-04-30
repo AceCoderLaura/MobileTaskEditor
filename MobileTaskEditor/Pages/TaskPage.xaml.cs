@@ -1,4 +1,4 @@
-﻿namespace MobileTaskEditor
+﻿namespace MobileTaskEditor.Pages
 {
     public partial class TaskPage
     {

@@ -2,11 +2,11 @@
 
 <Shell xmlns="http://xamarin.com/schemas/2014/forms"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       xmlns:mobileTaskEditor="clr-namespace:MobileTaskEditor;assembly=MobileTaskEditor"
+       xmlns:pages="clr-namespace:MobileTaskEditor.Pages;assembly=MobileTaskEditor"
        x:Class="MobileTaskEditor.MainPage">
 
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-        <ShellContent Title="Task" ContentTemplate="{x:DataTemplate mobileTaskEditor:TaskPage}" />
-    </FlyoutItem>
+    <ShellContent Title="Dashboard" ContentTemplate="{x:DataTemplate pages:TaskDashboard}" />
+    
+    <ShellContent Title="Task" ContentTemplate="{x:DataTemplate pages:TaskPage}" />
 
 </Shell>

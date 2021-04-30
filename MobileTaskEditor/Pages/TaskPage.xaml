@@ -1,4 +1,4 @@
-﻿<ContentPage x:Class="MobileTaskEditor.TaskPage"
+﻿<ContentPage x:Class="MobileTaskEditor.Pages.TaskPage"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:converters="clr-namespace:MobileTaskEditor.Converters;assembly=MobileTaskEditor"

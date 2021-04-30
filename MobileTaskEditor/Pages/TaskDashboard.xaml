@@ -1,0 +1,26 @@
+﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:MobileTaskEditor.Model;assembly=MobileTaskEditor"
+             xmlns:viewModel="clr-namespace:MobileTaskEditor.ViewModel;assembly=MobileTaskEditor"
+             x:Class="MobileTaskEditor.Pages.TaskDashboard">
+    
+    <ContentPage.Resources>
+        <DataTemplate x:Key="TaskTemplate" x:DataType="model:TaskInfo">
+            <Label Text="{Binding Description}" />
+        </DataTemplate>
+    </ContentPage.Resources>
+    
+    <ContentPage.BindingContext>
+        <viewModel:TaskDashboardViewModel />
+    </ContentPage.BindingContext>
+
+    <!-- TODO: Clear selection after navigate -->
+    <CollectionView SelectionMode="Single"
+                    ItemsSource="{Binding Tasks}"
+                    ItemTemplate="{StaticResource TaskTemplate}"
+                    SelectedItem="{Binding SelectedTask}"
+                    SelectionChangedCommand="{Binding OpenTaskCommand}"
+                    SelectionChangedCommandParameter="{Binding SelectedTask}"
+                    />
+
+</ContentPage>
