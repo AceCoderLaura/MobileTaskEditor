@@ -11,7 +11,6 @@ namespace MobileTaskEditor.ViewModel
     public sealed class TaskDashboardViewModel : INotifyPropertyChanged
     {
         private readonly OpenTaskCommand _openTaskCommand;
-        private TaskInfo _selectedTask;
         private ObservableCollection<TaskInfo> _tasks = new ObservableCollection<TaskInfo>
         {
             new TaskInfo
@@ -59,19 +58,6 @@ namespace MobileTaskEditor.ViewModel
         }
 
         public ICommand OpenTaskCommand => _openTaskCommand;
-
-        public TaskInfo SelectedTask
-        {
-            get => _selectedTask;
-            set
-            {
-                if (Equals(value, _selectedTask)) return;
-                _selectedTask = value;
-                OnPropertyChanged();
-                _openTaskCommand.OnCanExecuteChanged();
-            }
-        }
-
 
         [NotifyPropertyChangedInvocator]
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)

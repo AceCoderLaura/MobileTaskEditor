@@ -41,7 +41,7 @@ namespace MobileTaskEditor.ViewModel
         public TaskInfo TaskInfo
         {
             get => _taskInfo;
-            private set
+            set
             {
                 if (Equals(value, _taskInfo)) return;
 

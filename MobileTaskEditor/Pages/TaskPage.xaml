@@ -5,7 +5,7 @@
              xmlns:viewModel="clr-namespace:MobileTaskEditor.ViewModel;assembly=MobileTaskEditor">
 
     <ContentPage.BindingContext>
-        <viewModel:TaskInfoViewModel />
+        <viewModel:TaskInfoViewModel x:Name="TaskInfoViewModel" />
     </ContentPage.BindingContext>
 
     <ContentPage.ToolbarItems>
