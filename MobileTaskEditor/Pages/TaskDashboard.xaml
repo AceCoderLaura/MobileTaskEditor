@@ -7,7 +7,9 @@
 
     <ContentPage.Resources>
         <DataTemplate x:Key="TaskTemplate" x:DataType="model:TaskInfo">
-            <Label Text="{Binding Description}" />
+            <ViewCell>
+                <Label Text="{Binding Description}" />
+            </ViewCell>
         </DataTemplate>
     </ContentPage.Resources>
 
@@ -16,7 +18,8 @@
     </ContentPage.BindingContext>
 
     <ListView SelectionMode="None"
-              ItemsSource="{Binding Tasks}">
+              ItemsSource="{Binding Tasks}"
+              ItemTemplate="{StaticResource TaskTemplate}">
         <CollectionView.Behaviors>
             <behaviors:EventToCommandBehavior EventName="ItemTapped"
                                               Command="{Binding OpenTaskCommand}" />
